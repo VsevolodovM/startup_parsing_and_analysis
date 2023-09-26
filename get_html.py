@@ -1,14 +1,11 @@
-import requests
-from bs4 import BeautifulSoup
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 import time
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.by import By
 
 def get_new_html(url):
 
-    service = Service(executable_path='/home/mikhail/Desktop/parsing/startup_parsing_and_analysis/chromed/chromedriver')
+    service = Service(executable_path='../startup_parsing_and_analysis/chromed/chromedriver')
     options = webdriver.ChromeOptions()
     driver = webdriver.Chrome(service=service, options=options)
     driver.maximize_window()
@@ -16,7 +13,7 @@ def get_new_html(url):
     try:
         driver.get(url=url)
         i = 0
-        pages = 20
+        pages = 5
         while True:
             if i >= pages:
                 break
@@ -45,27 +42,12 @@ def get_new_html(url):
 
 
 
-def get_items_urls(file_path):
-    with open(file_path) as file:
-        src = file.read()
 
-    soup = BeautifulSoup(src, 'lxml')
-    items_divs = soup.find_all('div', class_="styles_item__Dk_nz")
-
-    urls = []
-    for item in items_divs:
-        item_url = item.find("a").get("href")
-        urls.append(item_url)
-
-    with open("ph_items_urls", "w") as file:
-        for url in urls:
-            file.write(f"{url}\n")
-        return print("[INFO] Urls collected successfully")
 
 
 def main():
-    #get_new_html(url="https://www.producthunt.com/")
-    print(get_items_urls(file_path = "/home/mikhail/Desktop/parsing/startup_parsing_and_analysis/ph_html_365_scrolls"))
+    get_new_html(url="https://www.producthunt.com/")
+
 
 
 if __name__ == "__main__":

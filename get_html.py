@@ -18,7 +18,7 @@ def get_new_html(url):
             if i >= pages:
                 break
             print('page:', i)
-            time.sleep(1.5)                                                                       #change this to smaller value if u have good internet connection
+            time.sleep(0.5)
 
             driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
             if driver.find_elements("xpath", "//button[contains(text(), 'View all from')]"):
